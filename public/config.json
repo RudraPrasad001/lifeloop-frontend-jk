@@ -13,6 +13,14 @@
       }
     },
     {
+      "action": "get_followers",
+      "description": "Get the list of followers for a specific username provided by the user.",
+      "method": "POST",
+      "payload": {
+        "username": "str"
+      }
+    },
+    {
       "action": "update_likes",
       "description": "Get names of users who liked a post / add a like to a post / to get likes for post",
       "method": "POST",

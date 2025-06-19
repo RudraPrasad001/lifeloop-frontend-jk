@@ -35,6 +35,11 @@ window.chatbotCallback = async (action, payload) => {
       url = `${SERVER}/upload/updateComments`;
       method = 'PUT';
       break;
+    case 'get_followers':
+      const username = payload.username;
+      url=`${SERVER}/app/followers/${username}`;
+      method='GET';
+      break;
     default:
       return { error: 'Unsupported action' };
   }
