@@ -2,6 +2,8 @@ import React, { useState,useEffect} from 'react';
 import Cookies from 'js-cookie';
 import {redirect, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import Widget from 'yuba-widget';
+import 'yuba-widget/dist/yuba-widget.css';
 import Comment from './Comment';
 import styles from './stylesheets/Home.module.css';
 import { Link } from 'react-router-dom';
@@ -9,6 +11,53 @@ import { configDotenv } from 'dotenv';
 import Post from './Post';
 
 function Home() {
+
+  const SERVER = import.meta.env.VITE_SERVER;
+
+window.chatbotCallback = async (action, payload) => {
+  let url = '';
+  let method = 'POST';
+
+  switch (action) {
+    case 'upload_post':
+      url = `${SERVER}/upload`;
+      method = 'POST';
+      break;
+    case 'update_likes':
+      url = `${SERVER}/upload/updateLikes`;
+      method = 'PUT';
+      break;
+    case 'get_posts':
+      url = `${SERVER}/upload/posts`;
+      method = 'GET';
+      break;
+    case 'update_comments':
+      url = `${SERVER}/upload/updateComments`;
+      method = 'PUT';
+      break;
+    default:
+      return { error: 'Unsupported action' };
+  }
+
+  const config = {
+    method,
+    url,
+    withCredentials: true,
+  };
+
+  if (method === 'GET') {
+    config.params = payload;
+  } else {
+    config.data = payload;
+  }
+
+  try {
+    const res = await axios(config);
+    return res.data;
+  } catch (err) {
+    return { error: err.message };
+  }
+};
 
   axios.defaults.withCredentials = true;
   const[isAuth,setAuth] = useState(true);
@@ -147,7 +196,7 @@ function Home() {
       handleLike={handleLike}/>)}
       </div>
       
-      
+      <Widget configuration="https://lifeloop.vercel.app/config.json" userEmail={decoded.name} />
     </div>
 
     );

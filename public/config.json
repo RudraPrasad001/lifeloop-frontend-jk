@@ -1,9 +1,9 @@
 {
+  "base_url":"https://lifeloop.vercel.app",
   "endpoints": [
-    
     {
+      "action": "upload_post",
       "description": "Upload a new post to the user's feed",
-      "url": "http://localhost:3002/upload",
       "method": "POST",
       "payload": {
         "userId": "$email",
@@ -13,45 +13,24 @@
       }
     },
     {
-      "description": "how many followers or to get the count and names of followers",
-      "url": "http://localhost:3002/app/followers/{username}",
-      "method": "GET",
+      "action": "update_likes",
+      "description": "Get names of users who liked a post / add a like to a post / to get likes for post",
+      "method": "POST",
       "payload": {
-        
-      }
-    },
-    {
-      "description":"get the names of people who liked the post  or to add like to a post",
-      "url":"http://localhost:3002/upload/updateLikes",
-      "method": "PUT",
-      "payload":{
         "user": "$email",
         "caption": "$caption"
       }
     },
-    
-    
     {
-      "description": "add a comment on a post",
-      "url": "http://localhost:3002/upload/updateComments",
-      "method": "PUT",
+      "action": "update_comments",
+      "description": "Add a comment on a post",
+      "method": "POST",
       "payload": {
         "user": "$email",
         "caption": "$caption",
         "comment": "$comment"
       }
-    },
-    {
-      "description": "get the number of likes from the post",
-      "url": "http://localhost:3002/upload/updateLikes",
-      "method": "GET",
-      "payload": {
-        "user": "$email",
-        "caption": "$caption"
-      }
     }
-    
-
   ],
   "defaultResponse": "Sorry, I didn’t get that. Try saying things like 'show my posts', 'upload a post', 'like this post', or 'comment on a post'."
 }
